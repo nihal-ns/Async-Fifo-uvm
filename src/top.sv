@@ -1,16 +1,16 @@
 `include "uvm_macros.svh"
 `include "Async_Fifo_interface.sv"
-`include "fifo_pkg.sv"  // change
+`include "fifo_pkg.sv"  
 `include "FIFO.v"
 `include "FIFO_memory.v"
 `include "rptr_empty.v"
 `include "wptr_full.v"
 `include "two_ff_sync.v"
 
-/* `include "fifo_assertion.sv" */
+`include "Async_Fifo_assertion.sv"
 
 import uvm_pkg::*;
-import fifo_pkg::*; // change
+import fifo_pkg::*; 
 
 module top;
 	bit WCLK, RCLK;
@@ -47,7 +47,7 @@ module top;
 		.rdata(intf.RDATA)
 		);
 
-	/* bind intf fifo_assertion ASSERT(.*); */
+	bind intf  Async_Fifo_assertion ASSERT(.*);
 
 	initial begin
 		uvm_config_db#(virtual Fifo_if)::set(null,"*","vif",intf);
@@ -55,7 +55,6 @@ module top;
 
 	initial begin
 		run_test("w_r_test");	
-		/* run_test("rand_wr_test"); */	
 		#100 $finish;
 	end
 endmodule	

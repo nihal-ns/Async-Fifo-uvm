@@ -8,7 +8,7 @@ class Async_Fifo_env extends uvm_env;
 	Write_agent write_agt;
 	Virtual_sequencer v_seqr;
 	Async_Fifo_scoreboard scb;
-	/* Async_Fifo_coverage cov; */
+	Async_Fifo_subscriber cov;
 
 	function new(string name = "Async_Fifo_env", uvm_component parent);
 		super.new(name,parent);
@@ -23,7 +23,7 @@ class Async_Fifo_env extends uvm_env;
 		set_config_int("read_agt","is_active",UVM_ACTIVE);
 
 		scb = Async_Fifo_scoreboard::type_id::create("scb",this);
-		/* cov = Async_Fifo_coverage::type_id::create("cov",this); */
+		cov = Async_Fifo_subscriber::type_id::create("cov",this);
 		
 		v_seqr = Virtual_sequencer::type_id::create("v_seqr",this);
 	endfunction: build_phase	
@@ -52,6 +52,8 @@ class Async_Fifo_env extends uvm_env;
 		v_seqr.sequencer_1 = read_agt.read_seqr;
 		v_seqr.sequencer_2 = write_agt.write_seqr;
 
+		read_agt.read_mon.read_item_port.connect(cov.read_port);
+		write_agt.write_mon.write_item_port.connect(cov.analysis_export);
 	endfunction: connect_phase
 
 endclass: Async_Fifo_env	
