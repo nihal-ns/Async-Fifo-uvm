@@ -1,7 +1,7 @@
 `ifndef VIRTUAL_SEQUENCER_INCLUDED_  
 `define VIRTUAL_SEQUENCER_INCLUDED_ 
 
-class Virtual_sequencer extends uvm_sequencer#(uvm_sequence_item); 
+class Virtual_sequencer extends uvm_sequencer; //#(uvm_sequence_item); 
 	`uvm_component_utils(Virtual_sequencer)                
 
 	Read_Fifo_sequencer sequencer_1;

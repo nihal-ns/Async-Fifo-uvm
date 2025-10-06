@@ -23,8 +23,9 @@ module FIFO_memory #(parameter DATA_SIZE = 8,
 
     assign rdata = mem[raddr];          // Read data
 
-		always @(posedge wclk) 
+    always @(posedge wclk)
         if (wclk_en && !wfull) mem[waddr] <= wdata; // Write data
+
 endmodule
 
 // ---------------------------EXPLANATION---------------------------------

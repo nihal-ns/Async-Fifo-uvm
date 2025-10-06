@@ -18,18 +18,21 @@ class Read_Fifo_driver extends uvm_driver#(r_seq);
 	endfunction: build_phase
 
 	virtual task run_phase(uvm_phase phase);
+		@(vif.read_drv_cb);
 		forever begin
 			seq_item_port.get_next_item(req);
-			drive(req);
+			drive();
 			seq_item_port.item_done();
 		end
 	endtask: run_phase
 	
-	task drive(r_seq req);
+	task drive();
 		/* repeat(1)@(vif.read_drv_cb); */
-		vif.RINC <= req.RINC;
-		`uvm_info(get_type_name(),$sformatf("Read Driver: rinc:%0b", req.RINC),UVM_LOW)
-		@(vif.read_drv_cb);
+		/* if(vif.RRST_n) begin */ 
+			@(vif.read_drv_cb);
+			vif.RINC <= req.RINC;
+			`uvm_info(get_type_name(),$sformatf("Read Driver: rinc:%0b", req.RINC),UVM_LOW)
+		/* end */
 	endtask: drive
 
 endclass: Read_Fifo_driver

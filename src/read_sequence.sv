@@ -12,7 +12,7 @@ class read_sequence extends uvm_sequence#(r_seq);
 		`uvm_info(get_type_name(),$sformatf("starting read sequence "), UVM_LOW) 
 		req = r_seq::type_id::create("req");          
 		start_item(req);
-		if(!req.randomize())
+	if(!req.randomize() with {RINC ==0;})
 		begin
 			`uvm_error(get_type_name(),"randomization failed");
 		end
@@ -23,7 +23,7 @@ class read_sequence extends uvm_sequence#(r_seq);
 endclass: read_sequence  
 
 ///////////////////////////////////////////////////
-// read three times
+// read sequence with enable 
 /////////////////////////////////////////////////
 class read_seq1 extends read_sequence;
 	`uvm_object_utils(read_seq1)
@@ -33,10 +33,7 @@ class read_seq1 extends read_sequence;
 	endfunction: new
 
 	virtual task body();
-		repeat(3) begin
-			`uvm_do_with(req,{req.RINC == 1;});
-		end
-			`uvm_do_with(req,{req.RINC == 0;});
+		`uvm_do_with(req,{req.RINC == 1;});
 	endtask: body
 
 endclass: read_seq1
@@ -52,7 +49,7 @@ class rand_read extends read_sequence;
 	endfunction: new
 
 	virtual task body();
-		repeat(10) begin
+	repeat(10) begin 
 			`uvm_do(req);
 		end
 	`uvm_do_with(req,{req.RINC == 0;});

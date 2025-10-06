@@ -1,11 +1,8 @@
 `include "uvm_macros.svh"
+`include "defines.sv"
 `include "Async_Fifo_interface.sv"
 `include "fifo_pkg.sv"  
 `include "FIFO.v"
-`include "FIFO_memory.v"
-`include "rptr_empty.v"
-`include "wptr_full.v"
-`include "two_ff_sync.v"
 
 `include "Async_Fifo_assertion.sv"
 
@@ -21,13 +18,13 @@ module top;
 
   initial begin
     WRST_n = 0;
-		repeat(1) @(negedge WCLK);
+		repeat(2) @(negedge WCLK);
     WRST_n = 1;
   end
 	
   initial begin
 		RRST_n = 0;
-		repeat(1) @(posedge RCLK);
+		repeat(2) @(negedge RCLK);
 		RRST_n = 1;
 	end
 
@@ -54,7 +51,9 @@ module top;
 	end
 
 	initial begin
-		run_test("w_r_test");	
+		/* run_test("test"); */	
+		/* run_test("write_full_test"); */	
+		run_test("comb_test");	
 		#100 $finish;
 	end
 endmodule	

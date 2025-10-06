@@ -22,7 +22,7 @@ parameter DSIZE  = 8;
 
 	property unknown_check;
 		@(posedge RCLK)
-			##2 ($isunknoWn(WRST_n) || $isunknown(RRST_n) || $isunknown(WINC) || $isunknown(RINC) || $isunknown(WDATA) || $isunknown(RDATA) || $isunknown(WFULL) || $isunknown(REMPTY)) == 0 ;
+			##2 ($isunknown(WRST_n) || $isunknown(RRST_n) || $isunknown(WINC) || $isunknown(RINC) || $isunknown(WDATA) || $isunknown(RDATA) || $isunknown(WFULL) || $isunknown(REMPTY)) == 0 ;
  	endproperty		
 
 	assert property (wrst_check)

@@ -13,8 +13,8 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 	w_seq write_packet_q[$];
 	r_seq read_packet_q[$];
 
-	localparam FIFO_DEPTH = 16; 
-	logic [`WIDTH-1:0] fifo_q[$];
+	localparam FIFO_DEPTH = 1 << `DSIZE; 
+	logic [`ASIZE-1:0] fifo_q[$];
 
 	function new(string name = "Async_Fifo_scoreboard", uvm_component parent);
 		super.new(name,parent);
@@ -63,7 +63,7 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 
 			forever begin
 				r_seq read_pkt;
-				logic [`WIDTH-1:0] expected_data;
+				logic [`ASIZE-1:0] expected_data;
 				bit emulated_empty;
 
 				wait (read_packet_q.size() > 0);

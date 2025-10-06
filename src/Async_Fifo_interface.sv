@@ -1,12 +1,11 @@
 `ifndef FIFO_IF_INCLUDED_
 `define FIFO_IF_INCLUDED_
-parameter WIDTH = 8;
 
 interface Fifo_if(input bit WCLK, RCLK, WRST_n, RRST_n );
-	logic WINC; 
-	logic RINC; 
-	logic [WIDTH -1:0] WDATA;
-	logic [WIDTH -1:0] RDATA;
+	bit WINC; 
+	bit RINC; 
+	logic [`ASIZE -1:0] WDATA;
+	logic [`ASIZE -1:0] RDATA;
 	logic WFULL;
 	logic REMPTY;
 
@@ -30,10 +29,10 @@ interface Fifo_if(input bit WCLK, RCLK, WRST_n, RRST_n );
 		output WINC, WDATA;
 	endclocking
 
-	modport READ_DRIVER(clocking read_mon_cb);
-	modport WRITE_DRIVER(clocking write_mon_cb);
-	modport READ_MONITOR(clocking read_drv_cb);
-	modport WRITE_MONITOR(clocking write_drv_cb);
+	modport READ_DRIVER(clocking read_mon_cb,input RCLK);
+	modport WRITE_DRIVER(clocking write_mon_cb,input WCLK);
+	modport READ_MONITOR(clocking read_drv_cb,input RCLK);
+	modport WRITE_MONITOR(clocking write_drv_cb,input WCLK);
 
 endinterface: Fifo_if
 

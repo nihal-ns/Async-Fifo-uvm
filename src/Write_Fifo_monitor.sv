@@ -24,13 +24,13 @@ class Write_Fifo_monitor extends uvm_monitor;
 			w_seq item = w_seq::type_id::create("item");
 
 			@(vif.write_mon_cb);
-			/* if(vif.WINC && vif.WRST_n) begin // think again */
+			/* if(vif.WINC) begin // think again */
 			item.WINC = vif.WINC;
 			item.WFULL = vif.WFULL;
 			item.WDATA = vif.WDATA;
-			/* `uvm_info(get_type_name(),$sformatf("Write Monitor: winc:%0b | wfull:%0b | wdata:%0d", vif.WINC, vif.WFULL, vif.WDATA), UVM_LOW) */
+			`uvm_info(get_type_name(),$sformatf("Write Monitor: winc:%0b | wfull:%0b | wdata:%0d", vif.WINC, vif.WFULL, vif.WDATA), UVM_LOW)
 			write_item_port.write(item);
-			/* repeat(1)@(vif.write_mon_cb); */
+			/* end */
 		end
 	endtask: run_phase	
 

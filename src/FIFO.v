@@ -7,6 +7,10 @@
 // DSIZE: Size of the data bus
 // ASIZE: Size of the address bus
 // -----------------------------------
+`include "two_ff_sync.v"
+`include "FIFO_memory.v"
+`include "rptr_empty.v"
+`include "wptr_full.v"
 
 module FIFO #(parameter DSIZE = 8,
     parameter ASIZE = 4)(

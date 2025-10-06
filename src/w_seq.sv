@@ -4,14 +4,16 @@
 class w_seq extends uvm_sequence_item;     	      
 		
 	rand logic WINC;
-	rand logic [`WIDTH-1:0] WDATA;
+	rand logic [`ASIZE-1:0] WDATA;
 	
-	bit WFULL;
+	logic WFULL;
+	logic scb_wrst;
 
 	`uvm_object_utils_begin(w_seq)
 		`uvm_field_int(WINC, UVM_ALL_ON)
 		`uvm_field_int(WDATA, UVM_ALL_ON)
 		`uvm_field_int(WFULL, UVM_ALL_ON)
+		`uvm_field_int(scb_wrst, UVM_ALL_ON)
 	`uvm_object_utils_end
 
 	function new(string name = "w_seq");

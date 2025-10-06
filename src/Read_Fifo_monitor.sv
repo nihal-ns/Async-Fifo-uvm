@@ -19,19 +19,19 @@ class Read_Fifo_monitor extends uvm_monitor;
 	endfunction: build_phase	
 
 	task run_phase(uvm_phase phase);
-			@(vif.read_mon_cb);
+			/* @(vif.read_mon_cb); */
 		forever begin
 			r_seq item = r_seq::type_id::create("item");
-			
+			$display("\n%0t || data:%0d\n",$time,vif.RDATA);
 			@(vif.read_mon_cb);
-			/* if(vif.RINC && vif.RRST_n) begin */
+			/* if(vif.RINC) begin */
 			item.RINC = vif.RINC;
 			item.REMPTY = vif.REMPTY;
 			item.RDATA = vif.RDATA;
-			/* `uvm_info(get_type_name(),$sformatf("Read Monitor: rinc:%0b | rempty:%0b | rdata:%0d", vif.RINC, vif.REMPTY, vif.RDATA), UVM_LOW) */
+			`uvm_info(get_type_name(),$sformatf("Read Monitor: rinc:%0b | rempty:%0b | rdata:%0d", vif.RINC, vif.REMPTY, vif.RDATA), UVM_LOW)
 			read_item_port.write(item);
+			/* @(vif.read_mon_cb); */
 			/* end */
-			/* repeat(1)@(vif.read_mon_cb); */
 		end
 	endtask: run_phase	
 

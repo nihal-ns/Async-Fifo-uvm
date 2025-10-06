@@ -71,3 +71,78 @@ class rand_wr_test extends test;
 	endtask
 
 endclass
+
+/////////////////////////////
+// write full flag test
+//////////////////////////////////////
+class write_full_test extends test;
+	`uvm_component_utils(write_full_test)
+
+	virtual_write_full v_seq_1;
+
+	function new(string name = "write_full_test", uvm_component parent = null);
+		super.new(name,parent);
+	endfunction	
+
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		v_seq_1 = virtual_write_full::type_id::create("v_seq_1");
+	endfunction
+
+	task run_phase(uvm_phase phase);
+		phase.raise_objection(this);
+		v_seq_1.start(env.v_seqr);
+		phase.drop_objection(this);
+	endtask
+
+endclass
+
+/////////////////////////////
+// read empty flag test
+//////////////////////////////////////
+class read_empty_test extends test;
+	`uvm_component_utils(read_empty_test)
+
+	virtual_read_empty v_seq_1;
+
+	function new(string name = "read_empty_test", uvm_component parent = null);
+		super.new(name,parent);
+	endfunction	
+
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		v_seq_1 = virtual_read_empty::type_id::create("v_seq_1");
+	endfunction
+
+	task run_phase(uvm_phase phase);
+		phase.raise_objection(this);
+		v_seq_1.start(env.v_seqr);
+		phase.drop_objection(this);
+	endtask
+
+endclass
+/////////////////////////////
+// all test
+//////////////////////////////////////
+class comb_test extends test;
+	`uvm_component_utils(comb_test)
+
+	virtual_wr v_seq_1;
+
+	function new(string name = "comb_test", uvm_component parent = null);
+		super.new(name,parent);
+	endfunction	
+
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		v_seq_1 = virtual_wr::type_id::create("v_seq_1");
+	endfunction
+
+	task run_phase(uvm_phase phase);
+		phase.raise_objection(this);
+		repeat(100)
+		v_seq_1.start(env.v_seqr);
+		phase.drop_objection(this);
+	endtask
+
+endclass

@@ -18,18 +18,21 @@ class Write_Fifo_driver extends uvm_driver#(w_seq);
 	endfunction: build_phase
 
 	virtual task run_phase(uvm_phase phase);
+		@(vif.write_drv_cb);
 		forever begin
 			seq_item_port.get_next_item(req);
-			drive(req);
+			drive();
 			seq_item_port.item_done();
 		end
 	endtask: run_phase
 	
-	task drive(w_seq req);
+	task drive();
 		/* repeat(1)@(vif.write_drv_cb); */
-		vif.WINC <= req.WINC;
-		vif.WDATA <= req.WDATA;
-		`uvm_info(get_type_name(),$sformatf("Write Driver: winc:%0b | Wdata: %0d", req.WINC, req.WDATA),UVM_LOW)
+		/* if(vif.WRST_n) begin */ 
+			vif.WINC <= req.WINC;
+			vif.WDATA <= req.WDATA;
+			`uvm_info(get_type_name(),$sformatf("Write Driver: winc:%0b | Wdata: %0d", req.WINC, req.WDATA),UVM_LOW)
+		/* end */
 		@(vif.write_drv_cb);
 	endtask: drive
 

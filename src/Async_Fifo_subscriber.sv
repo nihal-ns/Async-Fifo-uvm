@@ -11,20 +11,32 @@ class Async_Fifo_subscriber extends uvm_subscriber#(w_seq);
 
 // fifo read coverage 
 	covergroup read_cvg;
-    RINC_C: coverpoint read_seq.RINC;
+    RINC_C: coverpoint read_seq.RINC {
+			bins r_en_1 = {1};
+			bins r_en_0 = {0};
+		}
 		RDATA_C: coverpoint read_seq.RDATA{
 			option.auto_bin_max = 4;
 		}
-    EMPTY: coverpoint read_seq.REMPTY;
+    EMPTY: coverpoint read_seq.REMPTY {
+			bins empty_0 = {0};
+			bins empty_1 = {1};
+		}	
 	endgroup
 
 // fifo write coverage 
 	covergroup write_cvg;
-    WINC_C: coverpoint write_seq.WINC;
+    WINC_C: coverpoint write_seq.WINC {
+			bins w_en_1 = {1};
+			bins w_en_0 = {0};
+		}
 		WDATA_C: coverpoint write_seq.WDATA {
 			option.auto_bin_max = 4;
 		}
-    FULL_C: coverpoint write_seq.WFULL;
+    FULL_C: coverpoint write_seq.WFULL {
+			bins full_0 = {0};
+			bins full_1 = {1};
+		}
 	endgroup
 
 	function new(string name = "Async_Fifo_subscriber", uvm_component parent);

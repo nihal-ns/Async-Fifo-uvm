@@ -12,7 +12,7 @@ class write_sequence extends uvm_sequence#(w_seq);
 		`uvm_info(get_type_name(),$sformatf("Starting write sequence"), UVM_LOW) 
 		req = w_seq::type_id::create("req");          
 		start_item(req);
-		if(!req.randomize() with { WINC == 1;})
+		if(!req.randomize() with { WINC == 0;})
 		begin
 			`uvm_error(get_type_name(), "Randomization failed");
 		end
@@ -33,10 +33,7 @@ class write_seq1 extends write_sequence;
 	endfunction: new
 
 	virtual task body();
-		repeat(17) begin 
 			`uvm_do_with(req,{req.WINC == 1;});
-		end
-		`uvm_do_with(req,{req.WINC == 0;});
 	endtask: body
 
 endclass: write_seq1

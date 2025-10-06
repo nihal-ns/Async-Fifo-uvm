@@ -2,7 +2,7 @@
 `define FIFO_PKG_INCLUDED_
 
 `include "uvm_macros.svh"
-`define WIDTH 8
+`include "defines.sv"
 
 package fifo_pkg;
 	import uvm_pkg::*;
