@@ -24,7 +24,7 @@ module top;
 	
   initial begin
 		RRST_n = 0;
-		repeat(2) @(negedge RCLK);
+		repeat(1) @(negedge RCLK);
 		RRST_n = 1;
 	end
 
@@ -51,9 +51,9 @@ module top;
 	end
 
 	initial begin
-		/* run_test("test"); */	
+		run_test("w_r_test");	
 		/* run_test("write_full_test"); */	
-		run_test("comb_test");	
+		/* run_test("comb_test"); */	
 		#100 $finish;
 	end
 endmodule	

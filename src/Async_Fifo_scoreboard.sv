@@ -41,13 +41,17 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 			forever begin
 				w_seq write_pkt;
 				bit emulated_full;
+				bit i;
 
 				wait (write_packet_q.size() > 0);
 				write_pkt = write_packet_q.pop_front();
-
+			
+				$display("\n%0t|full size %0d\n",$time,fifo_q.size);
 				emulated_full = (fifo_q.size() == FIFO_DEPTH);
+				$display("\n%0t|full size %0d\n",$time,fifo_q.size);
 
-				if (write_pkt.WFULL != emulated_full) begin
+				/* if (write_pkt.WFULL != emulated_full) begin */  // this didn't work because wfull is true but scb still has to store the last data
+				if (write_pkt.WFULL != (fifo_q.size()+1-emulated_full == FIFO_DEPTH)) begin
 					`uvm_error(get_type_name(), $sformatf("WFULL Flag Mismatch! DUT reported: %b, Scoreboard expected: %b", write_pkt.WFULL, emulated_full))
 				end
 
@@ -69,9 +73,12 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 				wait (read_packet_q.size() > 0);
 				read_pkt = read_packet_q.pop_front();
 
+				$display("\n%0t|empty size %0d\n",$time,fifo_q.size);
 				emulated_empty = (fifo_q.size() == 0);
+				$display("\n%0t|empty size %0d\n",$time,fifo_q.size);
 
 				if (read_pkt.REMPTY != emulated_empty) begin
+				/* if (read_pkt.REMPTY != emulated_empty) begin */
 					`uvm_error(get_type_name(), $sformatf("REMPTY Flag Mismatch! DUT reported: %b, Scoreboard expected: %b", read_pkt.REMPTY, emulated_empty))
 				end
 

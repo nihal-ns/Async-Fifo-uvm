@@ -27,12 +27,10 @@ class Read_Fifo_driver extends uvm_driver#(r_seq);
 	endtask: run_phase
 	
 	task drive();
-		/* repeat(1)@(vif.read_drv_cb); */
-		/* if(vif.RRST_n) begin */ 
-			@(vif.read_drv_cb);
-			vif.RINC <= req.RINC;
-			`uvm_info(get_type_name(),$sformatf("Read Driver: rinc:%0b", req.RINC),UVM_LOW)
-		/* end */
+		vif.RINC <= req.RINC;
+		if(get_report_verbosity_level() >= UVM_HIGH)  
+			$display("Read Driver: rinc:%0b", req.RINC);
+		repeat(1)@(vif.read_drv_cb);
 	endtask: drive
 
 endclass: Read_Fifo_driver
