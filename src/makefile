@@ -56,5 +56,5 @@ cov:
 
 # --- Clean Target ---
 clean:
-	@rm -rf transcript vsim.wlf work *.log $(COV_LOG_FILE) $(COV_DB_FILE) $(COV_REPORT_DIR)
+	@rm -rf transcript vsim.wlf work *.vstf *.log $(COV_LOG_FILE) $(COV_DB_FILE) $(COV_REPORT_DIR)
 
