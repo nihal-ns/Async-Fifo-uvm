@@ -15,6 +15,8 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 
 	int FIFO_DEPTH = 1 << `DSIZE; 
 	logic [`ASIZE-1:0] fifo_q[$];
+	int MATCH, MISMATCH;
+	int no;
 
 	function new(string name = "Async_Fifo_scoreboard", uvm_component parent);
 		super.new(name,parent);
@@ -88,14 +90,19 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 						expected_data = fifo_q.pop_front();
 						if (read_pkt.RDATA == expected_data) begin
 							`uvm_info(get_type_name(), $sformatf("PASS: Read data matched. Got: %0d, Expected: %0d \n", read_pkt.RDATA, expected_data), UVM_LOW)
+							MATCH++;
 							$display("------------------------------------------------------------------------------------\n");
 						end else begin
 							`uvm_error(get_type_name(), $sformatf("FAIL: Read data mismatch. Got: %0d, Expected: %0d\n", read_pkt.RDATA, expected_data))
+							MISMATCH++;
 							$display("------------------------------------------------------------------------------------\n");
 						end
 					end
-				end
 			end
+			$display("======================================Total no of transaction========================================",);
+			$display("============================================== %0d ====================================================",no++);
+			$display("======================================Match of %0d out of %0d==========================================\n",MATCH,(MISMATCH + MATCH));
+		end
 		join_none
 	endtask: run_phase
 

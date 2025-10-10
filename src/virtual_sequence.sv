@@ -65,6 +65,8 @@ class virtual_write_read extends virtual_sequence;
 
 		begin 
 		seq_r.start(v_seqr.sequencer_1);
+		seq_r.start(v_seqr.sequencer_1);
+		seq_r.start(v_seqr.sequencer_1);
 		repeat(4) begin
 			rd_seq.start(v_seqr.sequencer_1);
 		end

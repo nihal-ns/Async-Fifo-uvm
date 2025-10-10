@@ -1,0 +1,210 @@
+# vsim -c -l top_log.log top "+UVM_VERBOSITY=UVM_HIGH" "+UVM_TESTNAME=w_r_test" -do "run -all ; quit" 
+# Start time: 12:41:04 on Oct 10,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.Fifo_if(fast)
+# Loading mtiUvm.uvm_pkg(fast)
+# Loading work.fifo_pkg(fast)
+# Loading work.top_sv_unit(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.top(fast)
+# Loading work.Async_Fifo_assertion(fast)
+# Loading /home/nihalns/Questa/questasim/uvm-1.1d/linux_x86_64/uvm_dpi.so
+# run -all 
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test w_r_test...
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(339) @ 0: reporter [Questa UVM] End Of Elaboration
+# UVM_INFO write_sequence.sv(15) @ 0: uvm_test_top.env.write_agt.write_seqr@@seq_w [write_sequence] Starting write sequence with WINC = 0
+# UVM_INFO read_sequence.sv(15) @ 0: uvm_test_top.env.read_agt.read_seqr@@seq_r [read_sequence] starting read sequence with RINC = 0
+# 5 |||Write Driver: winc:0 | Wdata: 16
+# write reset assertion pass
+# 10 |||Read Monitor: rinc:0 | rempty:1 | rdata:x
+# ======================================Total no of transaction======================================== 
+# ============================================== 0 ====================================================
+# ======================================Match of 0 out of 0==========================================
+# 
+# 10 |||Read Driver: rinc:0
+# RRST: Assertion fail
+# 15 |||Write Monitor: winc:0 | wfull:0 | wdata:16
+# 15 |||Write Driver: winc:1 | Wdata: 10
+# write reset assertion pass
+# 25 |||Write Monitor: winc:1 | wfull:0 | wdata:10
+# UVM_INFO Async_Fifo_scoreboard.sv(63) @ 25: uvm_test_top.env.scb [Async_Fifo_scoreboard] SCOREBOARD: Storing data: 10 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# 25 |||Write Driver: winc:1 | Wdata: 197
+# 30 |||Read Monitor: rinc:0 | rempty:1 | rdata:x
+# ======================================Total no of transaction======================================== 
+# ============================================== 1 ====================================================
+# ======================================Match of 0 out of 0==========================================
+# 
+# UVM_INFO read_sequence.sv(15) @ 30: uvm_test_top.env.read_agt.read_seqr@@seq_r [read_sequence] starting read sequence with RINC = 0
+# 30 |||Read Driver: rinc:0
+# RINC: Assertion fail
+# 35 |||Write Monitor: winc:1 | wfull:0 | wdata:197
+# UVM_INFO Async_Fifo_scoreboard.sv(63) @ 35: uvm_test_top.env.scb [Async_Fifo_scoreboard] SCOREBOARD: Storing data: 197 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# 35 |||Write Driver: winc:1 | Wdata: 199
+# 45 |||Write Monitor: winc:1 | wfull:0 | wdata:199
+# UVM_INFO Async_Fifo_scoreboard.sv(63) @ 45: uvm_test_top.env.scb [Async_Fifo_scoreboard] SCOREBOARD: Storing data: 199 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# 45 |||Write Driver: winc:1 | Wdata: 179
+# 50 |||Read Monitor: rinc:0 | rempty:1 | rdata:x
+# ======================================Total no of transaction======================================== 
+# ============================================== 2 ====================================================
+# ======================================Match of 0 out of 0==========================================
+# 
+# UVM_INFO read_sequence.sv(15) @ 50: uvm_test_top.env.read_agt.read_seqr@@seq_r [read_sequence] starting read sequence with RINC = 0
+# 50 |||Read Driver: rinc:0
+# UNKNOWN: Assertion fail
+# RINC: Assertion fail
+# 55 |||Write Monitor: winc:1 | wfull:0 | wdata:179
+# UVM_INFO Async_Fifo_scoreboard.sv(63) @ 55: uvm_test_top.env.scb [Async_Fifo_scoreboard] SCOREBOARD: Storing data: 179 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# UVM_INFO write_sequence.sv(15) @ 55: uvm_test_top.env.write_agt.write_seqr@@seq_w [write_sequence] Starting write sequence with WINC = 0
+# 55 |||Write Driver: winc:0 | Wdata: 34
+# 65 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 70 |||Read Monitor: rinc:0 | rempty:0 | rdata:x
+# ======================================Total no of transaction======================================== 
+# ============================================== 3 ====================================================
+# ======================================Match of 0 out of 0==========================================
+# 
+# 70 |||Read Driver: rinc:1
+# UNKNOWN: Assertion fail
+# RINC: Assertion fail
+# 75 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 85 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 90 |||Read Monitor: rinc:1 | rempty:0 | rdata:10
+# UVM_INFO Async_Fifo_scoreboard.sv(92) @ 90: uvm_test_top.env.scb [Async_Fifo_scoreboard] PASS: Read data matched. Got: 10, Expected: 10 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# ======================================Total no of transaction======================================== 
+# ============================================== 4 ====================================================
+# ======================================Match of 1 out of 1==========================================
+# 
+# 90 |||Read Driver: rinc:1
+# UNKNOWN: Assertion fail
+# 95 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 105 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 110 |||Read Monitor: rinc:1 | rempty:0 | rdata:197
+# UVM_INFO Async_Fifo_scoreboard.sv(92) @ 110: uvm_test_top.env.scb [Async_Fifo_scoreboard] PASS: Read data matched. Got: 197, Expected: 197 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# ======================================Total no of transaction======================================== 
+# ============================================== 5 ====================================================
+# ======================================Match of 2 out of 2==========================================
+# 
+# 110 |||Read Driver: rinc:1
+# Assertion pass, No signals are unknown
+# 115 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 125 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 130 |||Read Monitor: rinc:1 | rempty:0 | rdata:199
+# UVM_INFO Async_Fifo_scoreboard.sv(92) @ 130: uvm_test_top.env.scb [Async_Fifo_scoreboard] PASS: Read data matched. Got: 199, Expected: 199 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# ======================================Total no of transaction======================================== 
+# ============================================== 6 ====================================================
+# ======================================Match of 3 out of 3==========================================
+# 
+# 130 |||Read Driver: rinc:1
+# Assertion pass, No signals are unknown
+# 135 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 145 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 150 |||Read Monitor: rinc:1 | rempty:1 | rdata:179
+# UVM_INFO Async_Fifo_scoreboard.sv(92) @ 150: uvm_test_top.env.scb [Async_Fifo_scoreboard] PASS: Read data matched. Got: 179, Expected: 179 
+# 
+# ------------------------------------------------------------------------------------
+# 
+# ======================================Total no of transaction======================================== 
+# ============================================== 7 ====================================================
+# ======================================Match of 4 out of 4==========================================
+# 
+# UVM_INFO read_sequence.sv(15) @ 150: uvm_test_top.env.read_agt.read_seqr@@seq_r [read_sequence] starting read sequence with RINC = 0
+# 150 |||Read Driver: rinc:0
+# Assertion pass, No signals are unknown
+# 155 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 165 |||Write Monitor: winc:0 | wfull:0 | wdata:34
+# winc: Assertion pass
+# 170 |||Read Monitor: rinc:0 | rempty:1 | rdata:179
+# ======================================Total no of transaction======================================== 
+# ============================================== 8 ====================================================
+# ======================================Match of 4 out of 4==========================================
+# 
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 170: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO Async_Fifo_subscriber.sv(71) @ 170: uvm_test_top.env.cov [Async_Fifo_subscriber] read Coverage ------> 91.67%,
+# UVM_INFO Async_Fifo_subscriber.sv(72) @ 170: uvm_test_top.env.cov [Async_Fifo_subscriber] write Coverage ------> 75.00%
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   21
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [Async_Fifo_scoreboard]     8
+# [Async_Fifo_subscriber]     2
+# [Questa UVM]     3
+# [RNTST]     1
+# [TEST_DONE]     1
+# [read_sequence]     4
+# [write_sequence]     2
+# ** Note: $finish    : /home/nihalns/Questa/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 170 ns  Iteration: 67  Instance: /top
+# End time: 12:41:06 on Oct 10,2025, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
