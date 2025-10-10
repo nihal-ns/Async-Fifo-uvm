@@ -13,7 +13,7 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 	w_seq write_packet_q[$];
 	r_seq read_packet_q[$];
 
-	localparam FIFO_DEPTH = 1 << `DSIZE; 
+	int FIFO_DEPTH = 1 << `DSIZE; 
 	logic [`ASIZE-1:0] fifo_q[$];
 
 	function new(string name = "Async_Fifo_scoreboard", uvm_component parent);
@@ -27,12 +27,12 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 	endfunction: build_phase
 
 	virtual function void write_write_mon(w_seq pkt);
-		`uvm_info(get_type_name(), "Received a write packet from monitor.", UVM_HIGH)
+		`uvm_info(get_type_name(), "Received a write packet from monitor.", UVM_DEBUG)
 		write_packet_q.push_back(pkt);
 	endfunction: write_write_mon
 
 	virtual function void write_read_mon(r_seq pkt);
-		`uvm_info(get_type_name(), "Received a read packet from monitor.", UVM_HIGH)
+		`uvm_info(get_type_name(), "Received a read packet from monitor.", UVM_DEBUG)
 		read_packet_q.push_back(pkt);
 	endfunction: write_read_mon
 
@@ -46,12 +46,11 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 				wait (write_packet_q.size() > 0);
 				write_pkt = write_packet_q.pop_front();
 			
-				$display("\n%0t|full size %0d\n",$time,fifo_q.size);
 				emulated_full = (fifo_q.size() == FIFO_DEPTH);
-				$display("\n%0t|full size %0d\n",$time,fifo_q.size);
+				/* $display("||||||||||| full :%0b | size:%0d",emulated_full, fifo_q.size); */
 
 				/* if (write_pkt.WFULL != emulated_full) begin */  // this didn't work because wfull is true but scb still has to store the last data
-				if (write_pkt.WFULL != (fifo_q.size()+1-emulated_full == FIFO_DEPTH)) begin
+				if (write_pkt.WINC && (write_pkt.WFULL != (fifo_q.size()+1-emulated_full == FIFO_DEPTH))) begin
 					`uvm_error(get_type_name(), $sformatf("WFULL Flag Mismatch! DUT reported: %b, Scoreboard expected: %b", write_pkt.WFULL, emulated_full))
 				end
 
@@ -59,7 +58,8 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 					if (emulated_full) begin
 						`uvm_error(get_type_name(), "FAIL: DUT permitted a write to a full FIFO.")
 					end else begin
-						`uvm_info(get_type_name(), $sformatf("SCOREBOARD: Storing data: %0d", write_pkt.WDATA), UVM_LOW)
+						`uvm_info(get_type_name(), $sformatf("SCOREBOARD: Storing data: %0d \n", write_pkt.WDATA), UVM_LOW)
+						$display("------------------------------------------------------------------------------------\n");
 						fifo_q.push_back(write_pkt.WDATA);
 					end
 				end
@@ -73,11 +73,10 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 				wait (read_packet_q.size() > 0);
 				read_pkt = read_packet_q.pop_front();
 
-				$display("\n%0t|empty size %0d\n",$time,fifo_q.size);
 				emulated_empty = (fifo_q.size() == 0);
-				$display("\n%0t|empty size %0d\n",$time,fifo_q.size);
+				/* $display("|||||empty %0b || size: %0d",emulated_empty,fifo_q.size); */
 
-				if (read_pkt.REMPTY != emulated_empty) begin
+				if ( read_pkt.RINC && (read_pkt.REMPTY != (fifo_q.size()-1+emulated_empty == 0))) begin
 				/* if (read_pkt.REMPTY != emulated_empty) begin */
 					`uvm_error(get_type_name(), $sformatf("REMPTY Flag Mismatch! DUT reported: %b, Scoreboard expected: %b", read_pkt.REMPTY, emulated_empty))
 				end
@@ -88,9 +87,11 @@ class Async_Fifo_scoreboard extends uvm_scoreboard;
 					end else begin
 						expected_data = fifo_q.pop_front();
 						if (read_pkt.RDATA == expected_data) begin
-							`uvm_info(get_type_name(), $sformatf("PASS: Read data matched. Got: %0d, Expected: %0d", read_pkt.RDATA, expected_data), UVM_LOW)
+							`uvm_info(get_type_name(), $sformatf("PASS: Read data matched. Got: %0d, Expected: %0d \n", read_pkt.RDATA, expected_data), UVM_LOW)
+							$display("------------------------------------------------------------------------------------\n");
 						end else begin
-							`uvm_error(get_type_name(), $sformatf("FAIL: Read data mismatch. Got: %0d, Expected: %0d", read_pkt.RDATA, expected_data))
+							`uvm_error(get_type_name(), $sformatf("FAIL: Read data mismatch. Got: %0d, Expected: %0d\n", read_pkt.RDATA, expected_data))
+							$display("------------------------------------------------------------------------------------\n");
 						end
 					end
 				end

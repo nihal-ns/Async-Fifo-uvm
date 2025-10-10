@@ -28,8 +28,9 @@ class Read_Fifo_driver extends uvm_driver#(r_seq);
 	
 	task drive();
 		vif.RINC <= req.RINC;
-		if(get_report_verbosity_level() >= UVM_HIGH)  
-			$display("Read Driver: rinc:%0b", req.RINC);
+		if(get_report_verbosity_level() >= UVM_HIGH)  begin 
+			$display("%0t |||Read Driver: rinc:%0b",$time, req.RINC);
+		end
 		repeat(1)@(vif.read_drv_cb);
 	endtask: drive
 

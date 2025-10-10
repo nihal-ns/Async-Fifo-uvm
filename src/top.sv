@@ -30,7 +30,6 @@ module top;
 
 	Fifo_if intf(WCLK, RCLK, WRST_n, RRST_n);
 
-	// design dut connection
 	FIFO DUT (
 		.wclk(WCLK),
 		.rclk(RCLK),

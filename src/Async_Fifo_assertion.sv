@@ -28,25 +28,25 @@ parameter DSIZE  = 8;
 	assert property (wrst_check)
 		$display("write reset assertion pass");
 	else
-		$display("Assertion fail");
+		$display("WRST: Assertion fail");
 
 	assert property (rrst_check)
 		$display("read reset assertion pass");
 	else
-		$display("Assertion fail");
+		$display("RRST: Assertion fail");
 
 	assert property (winc_check)
 		$display("winc: Assertion pass");
 	else
-		$display("Assertion fail");
+		$display("WINC: Assertion fail");
 
 	assert property (rinc_check)
 		$display("rinc: Assertion pass");
 	else
-		$display("Assertion fail");
+		$display("RINC: Assertion fail");
 
 	assert property (unknown_check)
 		$display("Assertion pass, No signals are unknown");
 	else
-		$display("Assertion fail");
+		$display("UNKNOWN: Assertion fail");
 endprogram

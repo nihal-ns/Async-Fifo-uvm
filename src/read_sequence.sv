@@ -1,6 +1,9 @@
 `ifndef READ_SEQ_INCLUDED_ 
 `define READ_SEQ_INCLUDED_ 
 
+///////////////////////////////////////////////////
+// Mian read sequence with enable = 1
+/////////////////////////////////////////////////
 class read_sequence extends uvm_sequence#(r_seq); 
 	`uvm_object_utils(read_sequence)               
 
@@ -9,7 +12,7 @@ class read_sequence extends uvm_sequence#(r_seq);
 	endfunction: new
 
 	virtual task body();
-		`uvm_info(get_type_name(),$sformatf("starting read sequence "), UVM_LOW) 
+		`uvm_info(get_type_name(),$sformatf("starting read sequence with RINC = 0"), UVM_HIGH) 
 		req = r_seq::type_id::create("req");          
 		start_item(req);
 	if(!req.randomize() with {RINC ==0;})
@@ -23,7 +26,7 @@ class read_sequence extends uvm_sequence#(r_seq);
 endclass: read_sequence  
 
 ///////////////////////////////////////////////////
-// read sequence with enable 
+// read sequence with enable = 1
 /////////////////////////////////////////////////
 class read_seq1 extends read_sequence;
 	`uvm_object_utils(read_seq1)
@@ -56,6 +59,5 @@ class rand_read extends read_sequence;
 	endtask: body
 
 endclass: rand_read
-
 
 `endif

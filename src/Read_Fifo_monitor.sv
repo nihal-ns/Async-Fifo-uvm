@@ -3,7 +3,6 @@
 
 class Read_Fifo_monitor extends uvm_monitor; 
 	`uvm_component_utils(Read_Fifo_monitor)   
-	int i;
 
 	virtual Fifo_if vif;                  
 	uvm_analysis_port #(r_seq) read_item_port;     
@@ -22,12 +21,13 @@ class Read_Fifo_monitor extends uvm_monitor;
 	task run_phase(uvm_phase phase);
 		forever begin
 			r_seq item = r_seq::type_id::create("item");
-			item.RDATA = vif.RDATA; // this is sampled before so that the first read data is not missed
 			repeat(1)@(vif.read_mon_cb);
 			item.RINC = vif.RINC;
+			item.RDATA = vif.RDATA; 
 			item.REMPTY = vif.REMPTY;
-			if(get_report_verbosity_level() >= UVM_HIGH)
-				$display("Read Monitor: rinc:%0b | rempty:%0b | rdata:%0d", item.RINC, item.REMPTY, item.RDATA);
+			if(get_report_verbosity_level() >= UVM_HIGH) begin 
+				$display("%0t |||Read Monitor: rinc:%0b | rempty:%0b | rdata:%0d",$time, item.RINC, item.REMPTY, item.RDATA);
+			end 
 			read_item_port.write(item);
 		end
 	endtask: run_phase	

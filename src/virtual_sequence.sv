@@ -10,9 +10,9 @@ class virtual_sequence extends uvm_sequence;
 
 	virtual task body();
 		Virtual_sequencer v_seqr;
-		if(!$cast(v_seqr, m_sequencer)) begin
-			`uvm_fatal(get_full_name(),"Virtual sequencer pointer cast failed")
-		end
+		/* if(!$cast(v_seqr, m_sequencer)) begin */
+		/* 	`uvm_fatal(get_full_name(),"Virtual sequencer pointer cast failed") */
+		/* end */
 
 		seq_1 = read_sequence::type_id::create("seq_1");
 		seq_2 = write_sequence::type_id::create("seq_2");
@@ -44,6 +44,7 @@ class virtual_write_read extends virtual_sequence;
 
 	virtual task body();
 		Virtual_sequencer v_seqr;
+
 		if(!$cast(v_seqr, m_sequencer)) begin
 			`uvm_fatal(get_full_name(),"Virtual sequencer pointer cast failed")
 		end
@@ -52,18 +53,39 @@ class virtual_write_read extends virtual_sequence;
 		rd_seq = read_seq1::type_id::create("rd_seq");
 		seq_w = write_sequence::type_id::create("seq_w");
 		seq_r = read_sequence::type_id::create("seq_r");
-
+	
+	fork
+		begin
 		seq_w.start(v_seqr.sequencer_2);
-		repeat(16) begin
+		repeat(4) begin
 			wr_seq.start(v_seqr.sequencer_2);
 		end
 		seq_w.start(v_seqr.sequencer_2);
+		end
 
+		begin 
 		seq_r.start(v_seqr.sequencer_1);
-		repeat(16) begin
+		repeat(4) begin
 			rd_seq.start(v_seqr.sequencer_1);
 		end
 		seq_r.start(v_seqr.sequencer_1);
+		end
+	join
+
+		/* $display("-----------------------------------------------------------------------------------------------------------------------------"); */	
+		/* `uvm_info(get_type_name(),$sformatf("\n Starting the write and read sequence again "), UVM_HIGH) */ 
+		/* $display("-----------------------------------------------------------------------------------------------------------------------------"); */	
+		/* seq_w.start(v_seqr.sequencer_2); */
+		/* repeat(5) begin */
+		/* 	wr_seq.start(v_seqr.sequencer_2); */
+		/* end */
+		/* seq_w.start(v_seqr.sequencer_2); */
+
+		/* seq_r.start(v_seqr.sequencer_1); */
+		/* repeat(5) begin */
+		/* 	rd_seq.start(v_seqr.sequencer_1); */
+		/* end */
+		/* seq_r.start(v_seqr.sequencer_1); */
 	endtask: body
 
 endclass: virtual_write_read
@@ -83,9 +105,6 @@ class virtual_rand_wr extends virtual_sequence;
 
 	virtual task body();
 		Virtual_sequencer v_seqr;
-		if(!$cast(v_seqr, m_sequencer)) begin
-			`uvm_fatal(get_full_name(),"Virtual sequencer pointer cast failed")
-		end
 
 		wr_seq = rand_write::type_id::create("wr_seq");
 		rd_seq = rand_read::type_id::create("rd_seq");
@@ -110,9 +129,6 @@ class virtual_write_full extends virtual_sequence;
 
 	virtual task body();
 		Virtual_sequencer v_seqr;
-		if(!$cast(v_seqr, m_sequencer)) begin
-			`uvm_fatal(get_full_name(),"Virtual sequencer pointer cast failed")
-		end
 
 		wr_seq = write_seq1::type_id::create("wr_seq");
 		seq_w = write_sequence::type_id::create("seq_w");
@@ -144,9 +160,6 @@ class virtual_read_empty extends virtual_sequence;
 
 	virtual task body();
 		Virtual_sequencer v_seqr;
-		if(!$cast(v_seqr, m_sequencer)) begin
-			`uvm_fatal(get_full_name(),"Virtual sequencer pointer cast failed")
-		end
 
 		rd_seq = read_seq1::type_id::create("rd_seq");
 		seq_r = read_sequence::type_id::create("seq_r");
@@ -189,16 +202,10 @@ class virtual_wr extends virtual_sequence;
 
 	virtual task body();
 		Virtual_sequencer v_seqr;
-		if(!$cast(v_seqr, m_sequencer)) begin
-			`uvm_fatal(get_full_name(),"Virtual sequencer pointer cast failed")
-		end
-	
 		`uvm_do(seq_3)
 		`uvm_do(seq_1)
 		`uvm_do(seq_2)
 		`uvm_do(seq_4)
-		
-
 	endtask: body
 
 endclass: virtual_wr

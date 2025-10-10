@@ -26,8 +26,9 @@ class Write_Fifo_monitor extends uvm_monitor;
 			item.WINC = vif.WINC;
 			item.WFULL = vif.WFULL;
 			item.WDATA = vif.WDATA;
-			if(get_report_verbosity_level() >= UVM_HIGH)
-				$display("Write Monitor: winc:%0b | wfull:%0b | wdata:%0d", vif.WINC, vif.WFULL, vif.WDATA);
+			if(get_report_verbosity_level() >= UVM_HIGH) begin 
+				$display("%0t |||Write Monitor: winc:%0b | wfull:%0b | wdata:%0d",$time, vif.WINC, vif.WFULL, vif.WDATA);
+			end
 			write_item_port.write(item);
 		end
 	endtask: run_phase	

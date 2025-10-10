@@ -29,8 +29,9 @@ class Write_Fifo_driver extends uvm_driver#(w_seq);
 	task drive();
 		vif.WINC <= req.WINC;
 		vif.WDATA <= req.WDATA;
-		if(get_report_verbosity_level() >= UVM_HIGH)
-			$display("Write Driver: winc:%0b | Wdata: %0d", req.WINC, req.WDATA);
+		if(get_report_verbosity_level() >= UVM_HIGH) begin 
+			$display("%0t |||Write Driver: winc:%0b | Wdata: %0d",$time, req.WINC, req.WDATA);
+		end
 		repeat(1)@(vif.write_drv_cb);
 	endtask: drive
 

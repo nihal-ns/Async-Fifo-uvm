@@ -1,6 +1,9 @@
 `ifndef WRITE_SEQ_INCLUDED_ 
 `define WRITE_SEQ_INCLUDED_
 
+///////////////////////////////
+// Main write sequence with enable = 0
+///////////////////////////////
 class write_sequence extends uvm_sequence#(w_seq); 
 	`uvm_object_utils(write_sequence)               
 
@@ -9,7 +12,7 @@ class write_sequence extends uvm_sequence#(w_seq);
 	endfunction: new
 
 	virtual task body();
-		`uvm_info(get_type_name(),$sformatf("Starting write sequence"), UVM_LOW) 
+		`uvm_info(get_type_name(),$sformatf("Starting write sequence with WINC = 0"), UVM_HIGH) 
 		req = w_seq::type_id::create("req");          
 		start_item(req);
 		if(!req.randomize() with { WINC == 0;})
@@ -23,7 +26,7 @@ class write_sequence extends uvm_sequence#(w_seq);
 endclass: write_sequence 
 
 ///////////////////////////////////////////////
-// write six times 
+// write with enable = 1
 //////////////////////////////////////////////
 class write_seq1 extends write_sequence;
 	`uvm_object_utils(write_seq1)
@@ -56,6 +59,5 @@ class rand_write extends write_sequence;
 	endtask: body
 
 endclass: rand_write
-
 
 `endif
